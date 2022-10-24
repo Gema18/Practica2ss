@@ -177,12 +177,10 @@ Un sistema digital sencillo para eliminar altas frecuencias es el conocido como 
 1. Calcula la respuesta impulsional de este sistema para N = 4 (20 términos).
 
 ```{r}
-# ruido = rand(10000) + A
-# impulso = c(0.25, 0.25, 0.25, 0.25, 0, 
-#            0, 0, 0, 0, 0, 
-#            0, 0, 0, 0, 0, 
-#            0, 0, 0, 0, 0)
-# salida = conv(impulso, riodp)
+vector <- c(1, rep(0, times=19))
+
+Med_Mov(vector, 4)
+
 ```
 
 Como se trata de una delta, solo tendrá un valor y sera 1. Si cogemos 20 terminos con una N = 4 eso significará que solo habran 4 resultados diferentes de 0, que será 0,25. Puesto que se divide la suma de los 4 elementos (1) entre la N (en este caso 4), por tanto el impulso por logica ha de ser el siguiente:
@@ -192,6 +190,7 @@ Aun que los 0 tambien pueden estar detras.
 
 
 2. Genera una señal de ruido Gaussiano de 1000 puntos (utiliza la instrucción `randn`, por ejemplo de la librería `ramify`) y súmale un valor constante (componente de continua).
+
 
 ```{r}
 library(ramify)
