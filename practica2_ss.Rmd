@@ -67,6 +67,8 @@ search()
 
 2. Resuelve la ecuación en diferencias: y(n) = x(n) - 0.5y(n-1), x(n) = u(n)
 
+Gema
+
 3. Escribe una función que implemente la ecuación (1) del apartado 2.1.1 para cualquier valor de N.
 4. Obtén las ecuaciones en diferencias que describen el funcionamiento del sistema de la Figura 1.
 
