@@ -231,6 +231,7 @@ y(n) = x(n) - 0.7y(n-1), x(n) = u(n)
 
 ```{r}
 
+  
 ```
 
 
@@ -242,6 +243,26 @@ línea base) puede ser implementado a partir diagrama de bloques de la Figura 1,
 Escribe las ecuaciones en diferencias que te permiten calcular la salida del sistema a partir de la entrada.
 Calcula la salida a partir de las ecuaciones en diferencias \footnote{Como es un sistema de tipo IIR por ahora sólo podemos usar este tipo de ecuaciones.} utilizando como entrada la señal contenida en el fichero `ecg.mat` (Frecuencia de muestreo 1 kHz) y visualízalas. ¿Qué efecto tiene sobre la señal la
 modificación del parámetro $\alpha$?
+
+```{r}
+# electro_filtro <- function(ecg, alpha){
+#   bn1 = 0
+#   en1 = 0
+#   blf = c()
+#   for (i in 1:length(ecg)) {
+#     b <- ecg[i] - en1 + alpha * bn1
+#     bn1 = b
+#     en1 = ecg[i]
+#     blf = append(blf,b)
+#   }
+#   return(blf)
+# }
+# 
+# ecg = 
+# alpha =1
+# elec_fil = electro_filtro(ecg,alpha)
+```
+
 
 
 ![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
