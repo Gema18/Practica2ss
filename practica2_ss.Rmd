@@ -177,16 +177,15 @@ Un sistema digital sencillo para eliminar altas frecuencias es el conocido como 
 1. Calcula la respuesta impulsional de este sistema para N = 4 (20 términos).
 
 ```{r}
-# ruido = rand(10000) + A
-# impulso = c(0.25, 0.25, 0.25, 0.25, 0, 
-#            0, 0, 0, 0, 0, 
-#            0, 0, 0, 0, 0, 
-#            0, 0, 0, 0, 0)
-# salida = conv(impulso, riodp)
+vector <- c(1, rep(0, times=19))
+
+Med_Mov(vector, 4)
+
 ```
 
 
 2. Genera una señal de ruido Gaussiano de 1000 puntos (utiliza la instrucción `randn`, por ejemplo de la librería `ramify`) y súmale un valor constante (componente de continua).
+
 
 3. Determina la salida del sistema convolucionando la respuesta impulsional y la entrada.
 
