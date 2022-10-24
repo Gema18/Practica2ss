@@ -196,11 +196,11 @@ Aun que los 0 tambien pueden estar detras.
 library(ramify)
 library(signal)
 
-ruido = randn(1000)
+constante = 10
+
+ruido = randn(1000) + constante
 impulso = c(0.25,0.25,0.25,0.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
-salida = conv(impulso, ruido)
-salida
 plot(ruido)
 
 
@@ -210,6 +210,7 @@ plot(ruido)
 3. Determina la salida del sistema convolucionando la respuesta impulsional y la entrada.
 
 ```{r}
+salida = conv(impulso, ruido)
 plot(salida)
 ```
 
@@ -217,6 +218,10 @@ plot(salida)
 4. Representa la entrada y la salida en una misma gráfica con distinto color. ¿Qué diferencias observas entre ambas señales? Si aumentas $N$, ¿qué diferencias observas entre la señal de entrada y la señal de salida a medida que aumenta N?
 
 ```{r}
+#ggplot() + geom_point(aes(x = impulso), col = "red") + geom_point(aes(x = salida), col = "blue") 
+
+plot(impulso) 
+
 
 ```
 
