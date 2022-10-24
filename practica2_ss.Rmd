@@ -43,7 +43,7 @@ knit_hooks$set(inline=function(x) {
 
 ```{r, include=F}
 # Especificamos las librerías necesarias en esta lista
-packages=c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer", "dplyr", "lubridate", "kableExtra")
+packages=c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer", "dplyr", "lubridate", "kableExtra", "ramify", "signal")
 # use this function to check if each package is on the local machine
 # if a package is installed, it will be loaded
 # if any are not, the missing package(s) will be installed and loaded
@@ -193,11 +193,8 @@ Aun que los 0 tambien pueden estar detras.
 
 
 ```{r}
-library(ramify)
-library(signal)
-
 ruido = randn(1000)
-impulso = c(0.25,0.25,0.25,0.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+impulso = c(rep(0.25, times=4),rep(0, times=16))
 
 salida = conv(impulso, ruido)
 
