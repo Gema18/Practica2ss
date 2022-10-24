@@ -114,12 +114,15 @@ $\hspace{2cm} 1 = \frac{2}{3}  \ + K_1 \hspace{1cm} \rightarrow \hspace{1cm} K_1
 $\hspace{2cm} K_1 = \frac{1}{3}$
 
 
-$\hspace{2cm} y(n)' = \frac{2}{3}  \ u(n) \ + \frac{1}{3} \ (-0.5)^n$
+$\hspace{2cm} y(n)' = \left[ \frac{2}{3}\ + \ \frac{1}{3} \ (-0.5)^n \right] u(n)$
 
+\newpage
 
 3. Escribe una función que implemente la ecuación (1) del apartado 2.1.1 para cualquier valor de N.
 
 4. Obtén las ecuaciones en diferencias que describen el funcionamiento del sistema de la Figura 1.
+
+\newpage
 
 # 2. Laboratorio
 
