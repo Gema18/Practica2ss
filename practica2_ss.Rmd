@@ -131,13 +131,19 @@ Med_Mov <- function(x,N){ #x -> vector, N -> pasos
       suma <- x[j] + suma} # vamos sumando
     out <- suma/N
     y <- append(y,out)}
+  
+  for ( i in N:length(x)-1) {
+    suma <- 0
+    for (j in 0:N-1) {
+      suma <- suma + x[i-j]
+      }
+    output <- 1/N *suma
+    y <- append(y, output)
+    }
   return(y)
 }
 
-x <- c(1,2,3,4,5)
-Med_Mov(x,4)
 
-  
 ```
 
 
@@ -169,6 +175,16 @@ Un sistema digital sencillo para eliminar altas frecuencias es el conocido como 
 
 
 1. Calcula la respuesta impulsional de este sistema para N = 4 (20 términos).
+
+```{r}
+# ruido = rand(10000) + A
+# impulso = c(0.25, 0.25, 0.25, 0.25, 0, 
+#            0, 0, 0, 0, 0, 
+#            0, 0, 0, 0, 0, 
+#            0, 0, 0, 0, 0)
+# salida = conv(impulso, riodp)
+```
+
 
 2. Genera una señal de ruido Gaussiano de 1000 puntos (utiliza la instrucción `randn`, por ejemplo de la librería `ramify`) y súmale un valor constante (componente de continua).
 
