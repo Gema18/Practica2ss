@@ -203,19 +203,35 @@ salida = conv(impulso, ruido)
 salida
 plot(ruido)
 
-plot(salida)
 
 ```
 
 
 3. Determina la salida del sistema convolucionando la respuesta impulsional y la entrada.
 
+```{r}
+plot(salida)
+```
+
+
 4. Representa la entrada y la salida en una misma gráfica con distinto color. ¿Qué diferencias observas entre ambas señales? Si aumentas $N$, ¿qué diferencias observas entre la señal de entrada y la señal de salida a medida que aumenta N?
+
+```{r}
+
+```
+
 
 ### 2.1.2 Algoritmo resolución ecuaciones en diferencias
 Implementa el algoritmo para resolver ecuaciones en diferencias con solo un retraso y solución particular constante. Pruébalo para:
 
 y(n) = x(n) - 0.7y(n-1), x(n) = u(n)
+
+
+```{r}
+
+```
+
+
 
 ### 2.1.3. Procesado de electrocardiogramas
 Un sistema que elimina las oscilaciones de baja frecuencia en un electrocardiograma (oscilaciones de la
