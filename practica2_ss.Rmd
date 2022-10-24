@@ -200,7 +200,7 @@ ruido = randn(1000)
 impulso = c(0.25,0.25,0.25,0.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
 salida = conv(impulso, ruido)
-salida
+
 plot(ruido)
 
 
