@@ -200,7 +200,11 @@ impulso = c(rep(0.25, times=4),rep(0, times=16))
 
 plot(ruido)
 
+indice <- c(1:nrow(ruido))
+ruido2 <- cbind(indice,ruido)
+ruido3 <- as.data.frame(ruido2)
 
+ggplot(ruido3) + geom_point(aes(x = indice, y = V2))
 ```
 
 
@@ -209,6 +213,13 @@ plot(ruido)
 ```{r}
 salida = conv(impulso, ruido)
 plot(salida)
+
+salida1 <- as.data.frame(salida)
+indice2 = c(1:nrow(salida1))
+salida2 = cbind(indice2,salida)
+salida3 = as.data.frame(salida2)
+
+ggplot(salida3) + geom_point(aes(x = indice2, y = salida))
 ```
 
 
@@ -224,7 +235,19 @@ par(new=T)
 par(col="black")
 plot(salida)
 
+
+####################################
+# CON GGPLOT, TIENE SENTIDO PERO QUEDA RARO
+# Tiene sentido porque si te fijas en el gráfico con plot ves que se superponen ambos gráficos y también se superponen los ejes, por eso se ve en color azul el impulso arriba porque el gráfico de impulso en el eje y tiene 0.25 arriba pero al superponerse con salida, el gráfico de salida en el eje y el valor máximo es 12 entonces cuando los dibujamos con ggplot se hace el gráfico real y por eso se ve una línea abajo 
+
+# es una explicación un poco mala pero es para entenderme, por si tengo que explicartelo Sandra acordarme de lo que pasaba :)
+
+impulso2 = c(rep(0.25, times=4),rep(0, times=1015))
+ggplot(salida3) + geom_point(aes(x = indice2, y = salida)) + geom_point(aes(x = indice2, y = impulso2), col = "blue") 
+
+
 ```
+
 
 
 ### 2.1.2 Algoritmo resolución ecuaciones en diferencias
