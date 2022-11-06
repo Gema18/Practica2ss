@@ -150,6 +150,9 @@ Med_Mov <- function(x,N){ #x -> vector, N -> pasos
 
 4. Obtén las ecuaciones en diferencias que describen el funcionamiento del sistema de la Figura 1.
 
+![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
+
+
 $\hspace{2cm}\left.\begin{array}{c} w(u) = ecg(u) - \alpha w(n-1)\\ bl(u) =  w(u) \ + w(n-1)\end{array}\right\rbrace$
 
 $w= erg + \alpha w(n-1)$
@@ -338,4 +341,3 @@ plot(bl_1, ylim = c(-0.4, 0.9), type = "l", col = "grey")
 ```
 
 
-![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
