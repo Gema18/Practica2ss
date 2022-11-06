@@ -27,7 +27,7 @@ library(knitr)
 options(width=100)
 # Opciones generales chunks
 opts_chunk$set(echo=TRUE, message=F, error=F, warning=F,
-               comment=NA, fig.align='center', dpi=100, tidy=F,
+               comment=NA, dpi=100, tidy=F,
                cache.path='./cache/', fig.path='./figure/')
 
 # options(xtable.type='html')
@@ -160,6 +160,17 @@ $bl = w - wz^-1$
 
 $$w = \frac{bl}{(1-z^-1)}$$
 
+```{r}
+###################################
+###################################
+
+# REPASAR ESTO!!!!!!!
+
+###################################
+###################################
+
+```
+
 
 
 \newpage
@@ -282,62 +293,104 @@ Escribe las ecuaciones en diferencias que te permiten calcular la salida del sis
 Calcula la salida a partir de las ecuaciones en diferencias \footnote{Como es un sistema de tipo IIR por ahora sólo podemos usar este tipo de ecuaciones.} utilizando como entrada la señal contenida en el fichero `ecg.mat` (Frecuencia de muestreo 1 kHz) y visualízalas. ¿Qué efecto tiene sobre la señal la
 modificación del parámetro $\alpha$?
 
+![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
+
 ```{r}
 #Recogemos los datos en la variable ecg de la siguiente manera
 ecg <- readMat("./ecg.mat")$ecg
 
 #Creamos la funcion electro
 
-electro <- function(ecg, alpha){
-  wn1 = 0
-  bl = c()
+electro <- function(ecg, alfa){
+  wn_1 = 0
+  bln = c()
   
   for (i in 1:length(ecg)){
-    w = ecg[i] + alpha * wn1
-    b = w - wn1
-    wn1 = w
-    bl = append(bl, b)
+    wn = ecg[i] + alfa * wn_1
+    bn = wn - wn_1
+    wn_1 = wn
+    bln = append(bln, bn)
   }
-  return(bl)
+  return(bln)
 }
 
 #Comprobamos el funcionamiento de nuestra funcion dandole valores de 
 #alpha entre 0 y 1, nosotros decidimos probar con 0.5
 
-alpha = 0.5
-bl = electro(ecg, alpha)
+alfa = 0.5
+bl = electro(ecg, alfa)
 
 plot(bl, xlim = c(45,1000), ylim = c(-0.10, 0.10), type = "l")
 
 
+
+bl1 <- as.data.frame(bl) # pasamos a data frame la variable que queremos representar
+indice2 = c(1:nrow(bl1)) #creamos un vector con el número de las filas que hay en nuestro df 
+bl2 = cbind(indice2,bl1)
+ggplot(bl2) + geom_line(aes(x= indice2, y= bl)) +
+  xlim(45, 1000) + ylim(-0.1, 0.1)
+
+
 ```
 
-Ahora queremos darle valores diferentes a la variable alpha para comparar los resutlados, en ete caso pondremos ambos extremos: 0 y 1.
+Ahora queremos darle valores diferentes a la variable alpha para comparar los resultados, en este caso pondremos ambos extremos: 0 y 1.
 
 ```{r}
-alpha = 0
-bl_0 = electro(ecg, alpha)
+alfa = 0
+bl_0 = electro(ecg, alfa)
 
-alpha = 1
-bl_1 = electro(ecg, alpha)
+alfa = 1
+bl_1 = electro(ecg, alfa)
 
 ```
 
-En el caso de usar el alpha = 0:
+En el caso de usar el $\alpha$ = 0:
 
 ```{r}
 plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
 par(new = T)
 plot(bl_0, ylim = c(-0.4, 0.9), type = "l", col = "grey")
+
+comparacion_1 <- as.data.frame(ecg[1,]) # pasamos a data frame la variable que queremos representar
+indice1 = c(1:nrow(comparacion_1)) #creamos un vector con el número de las filas que hay en nuestro df 
+
+
+bl_01 <- as.data.frame(bl_0) # pasamos a data frame la variable que queremos representar
+indice_01 = c(1:nrow(bl_01)) #creamos un vector con el número de las filas que hay en nuestro df 
+
+if (length(indice_01) == length(indice1)){
+  comparacion = cbind(indice1,comparacion_1, bl_01)
+  
+  ggplot(comparacion) + geom_line(aes(x= indice1, y= ecg[1,])) + geom_line(aes(x= indice1, y= bl_0), col = "indianred", alpha = 0.6) + ylim(-0.4, 0.9)
+
+}
+
 ```
 
 
-En el caso de usar el alpha = 1:
+En el caso de usar el $\alpha$ = 1:
 
 ```{r}
 plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
 par(new = T)
 plot(bl_1, ylim = c(-0.4, 0.9), type = "l", col = "grey")
+
+comparacion_1 <- as.data.frame(ecg[1,]) # pasamos a data frame la variable que queremos representar
+indice1 = c(1:nrow(comparacion_1)) #creamos un vector con el número de las filas que hay en nuestro df 
+
+
+bl_11 <- as.data.frame(bl_1) # pasamos a data frame la variable que queremos representar
+indice_11 = c(1:nrow(bl_11)) #creamos un vector con el número de las filas que hay en nuestro df 
+
+if (length(indice_11) == length(indice1)){
+  comparacion = cbind(indice1,comparacion_1, bl_11)
+  
+  ggplot(comparacion) + geom_line(aes(x= indice1, y= ecg[1,])) + geom_line(aes(x= indice1, y= bl_1), col = "indianred", alpha = 0.6) + ylim(-0.4, 0.9)
+
+}
+
+
 ```
 
 
+Vemos que en el caso de usar $\alpha$= 1, la señal es la misma.
