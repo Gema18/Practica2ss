@@ -280,52 +280,62 @@ Calcula la salida a partir de las ecuaciones en diferencias \footnote{Como es un
 modificación del parámetro $\alpha$?
 
 ```{r}
-# Cargamos los datos en la variable ecg
-
+#Recogemos los datos en la variable ecg de la siguiente manera
 ecg <- readMat("./ecg.mat")$ecg
 
-# definimos la función electro
+#Creamos la funcion electro
 
-electro <- function(ecg, alfa){
+electro <- function(ecg, alpha){
   wn1 = 0
   bl = c()
   
   for (i in 1:length(ecg)){
-    w = ecg[i] + alfa * wn1
-    
+    w = ecg[i] + alpha * wn1
     b = w - wn1
     wn1 = w
-    
     bl = append(bl, b)
   }
   return(bl)
 }
 
-# comprobamos cómo es el electrocardiograma cuando le ponemos un alpha de 0.3 para ver como es.
+#Comprobamos el funcionamiento de nuestra funcion dandole valores de 
+#alpha entre 0 y 1, nosotros decidimos probar con 0.5
 
-alfa = 0.3
-bl = electro(ecg, alfa)
+alpha = 0.5
+bl = electro(ecg, alpha)
 
 plot(bl, xlim = c(45,1000), ylim = c(-0.10, 0.10), type = "l")
 
-# electro_filtro <- function(ecg, alpha){
-#   bn1 = 0
-#   en1 = 0
-#   blf = c()
-#   for (i in 1:length(ecg)) {
-#     b <- ecg[i] - en1 + alpha * bn1
-#     bn1 = b
-#     en1 = ecg[i]
-#     blf = append(blf,b)
-#   }
-#   return(blf)
-# }
-# 
-# ecg = 
-# alpha =1
-# elec_fil = electro_filtro(ecg,alpha)
+
 ```
 
+Ahora queremos darle valores diferentes a la variable alpha para comparar los resutlados, en ete caso pondremos ambos extremos: 0 y 1.
+
+```{r}
+alpha = 0
+bl_0 = electro(ecg, alpha)
+
+alpha = 1
+bl_1 = electro(ecg, alpha)
+
+```
+
+En el caso de usar el alpha = 0:
+
+```{r}
+plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
+par(new = T)
+plot(bl_0, ylim = c(-0.4, 0.9), type = "l", col = "grey")
+```
+
+
+En el caso de usar el alpha = 1:
+
+```{r}
+plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
+par(new = T)
+plot(bl_1, ylim = c(-0.4, 0.9), type = "l", col = "grey")
+```
 
 
 ![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
