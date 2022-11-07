@@ -153,23 +153,12 @@ Med_Mov <- function(x,N){ #x -> vector, N -> pasos
 ![Sistema digital para eliminar oscilaciones de baja frecuencia.](sistema_digital.png)
 
 
-$\hspace{2cm}\left.\begin{array}{c} w(u) = ecg(u) - \alpha w(n-1)\\ bl(u) =  w(u) \ + w(n-1)\end{array}\right\rbrace$
+$\hspace{2cm}\left.\begin{array}{c} w(n) = ecg(n) - \alpha w(n-1)\\ bl(n) =  w(n) \ - w(n-1)\end{array}\right\rbrace$
 
 $w= erg + \alpha w(n-1)$
 $bl = w - wz^-1$
 
 $$w = \frac{bl}{(1-z^-1)}$$
-
-```{r}
-###################################
-###################################
-
-# REPASAR ESTO!!!!!!!
-
-###################################
-###################################
-
-```
 
 
 
@@ -212,7 +201,6 @@ constante = 10
 ruido = randn(1000) + constante
 impulso = c(rep(0.25, times=4),rep(0, times=16))
 
-plot(ruido)
 
 indice <- c(1:nrow(ruido))
 ruido2 <- cbind(indice,ruido)
@@ -226,7 +214,6 @@ ggplot(ruido3) + geom_point(aes(x = indice, y = V2))
 
 ```{r}
 salida = conv(impulso, ruido)
-plot(salida)
 
 salida1 <- as.data.frame(salida)
 indice2 = c(1:nrow(salida1))
@@ -240,25 +227,8 @@ ggplot(salida3) + geom_point(aes(x = indice2, y = salida))
 4. Representa la entrada y la salida en una misma gráfica con distinto color. ¿Qué diferencias observas entre ambas señales? Si aumentas $N$, ¿qué diferencias observas entre la señal de entrada y la señal de salida a medida que aumenta N?
 
 ```{r}
-# ggplot() + geom_point(aes(x = impulso), col = "red") + geom_point(aes(x = salida), col = "blue") 
-
-
-par(col="blue")
-plot(impulso)
-par(new=T)
-par(col="black")
-plot(salida)
-
-
-####################################
-# CON GGPLOT, TIENE SENTIDO PERO QUEDA RARO
-# Tiene sentido porque si te fijas en el gráfico con plot ves que se superponen ambos gráficos y también se superponen los ejes, por eso se ve en color azul el impulso arriba porque el gráfico de impulso en el eje y tiene 0.25 arriba pero al superponerse con salida, el gráfico de salida en el eje y el valor máximo es 12 entonces cuando los dibujamos con ggplot se hace el gráfico real y por eso se ve una línea abajo 
-
-# es una explicación un poco mala pero es para entenderme, por si tengo que explicartelo Sandra acordarme de lo que pasaba :)
-
 impulso2 = c(rep(0.25, times=4),rep(0, times=1015))
 ggplot(salida3) + geom_point(aes(x = indice2, y = salida)) + geom_point(aes(x = indice2, y = impulso2), col = "blue") 
-
 
 ```
 
@@ -320,8 +290,6 @@ electro <- function(ecg, alfa){
 alfa = 0.5
 bl = electro(ecg, alfa)
 
-plot(bl, xlim = c(45,1000), ylim = c(-0.10, 0.10), type = "l")
-
 
 
 bl1 <- as.data.frame(bl) # pasamos a data frame la variable que queremos representar
@@ -347,9 +315,6 @@ bl_1 = electro(ecg, alfa)
 En el caso de usar el $\alpha$ = 0:
 
 ```{r}
-plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
-par(new = T)
-plot(bl_0, ylim = c(-0.4, 0.9), type = "l", col = "grey")
 
 comparacion_1 <- as.data.frame(ecg[1,]) # pasamos a data frame la variable que queremos representar
 indice1 = c(1:nrow(comparacion_1)) #creamos un vector con el número de las filas que hay en nuestro df 
@@ -371,10 +336,6 @@ if (length(indice_01) == length(indice1)){
 En el caso de usar el $\alpha$ = 1:
 
 ```{r}
-plot(ecg[1,], ylim = c(-0.4, 0.9), type = "l")
-par(new = T)
-plot(bl_1, ylim = c(-0.4, 0.9), type = "l", col = "grey")
-
 comparacion_1 <- as.data.frame(ecg[1,]) # pasamos a data frame la variable que queremos representar
 indice1 = c(1:nrow(comparacion_1)) #creamos un vector con el número de las filas que hay en nuestro df 
 
@@ -388,7 +349,6 @@ if (length(indice_11) == length(indice1)){
   ggplot(comparacion) + geom_line(aes(x= indice1, y= ecg[1,])) + geom_line(aes(x= indice1, y= bl_1), col = "indianred", alpha = 0.6) + ylim(-0.4, 0.9)
 
 }
-
 
 ```
 
